@@ -1,0 +1,579 @@
+/* Guardian Portal - OpenWrt Gateway & Connected Devices view styles */
+
+.devices-top-row {
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+/* OpenWrt Router Card details */
+.router-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.online-indicator-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.online-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--accent-green);
+}
+
+.online-text {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-green);
+}
+
+.router-status-card h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+}
+
+.router-model {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.npu-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.npu-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--accent-blue);
+}
+
+/* Metrics sub-grid */
+.router-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.router-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: rgba(10, 18, 32, 0.2);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px;
+}
+
+.router-metric .metric-name {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.metric-visual-number {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+
+.metric-num-val {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.metric-unit {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.metric-progress-track {
+    width: 100%;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.metric-progress-bar {
+    height: 100%;
+    border-radius: 2px;
+}
+
+.fill-blue-30 { width: 30%; background-color: var(--accent-blue); }
+.fill-green-15 { width: 15%; background-color: var(--accent-green); }
+.fill-purple-42 { width: 42%; background-color: var(--accent-purple); }
+.fill-cyan-68 { width: 68%; background-color: var(--accent-cyan); }
+
+/* Topology Map styling */
+.topology-segment h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.topology-chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.topology-node-isp, .topology-node-gateway {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 72px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.node-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--bg-card-solid);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px;
+    transition: all 0.25s ease;
+}
+
+.topology-node-gateway.active-glow .node-icon {
+    border-color: rgba(16, 185, 129, 0.3);
+    color: var(--accent-green);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+}
+
+.topology-line {
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.05);
+    flex-grow: 1;
+    max-width: 60px;
+}
+
+.topology-line.active {
+    background-color: var(--accent-green);
+    box-shadow: 0 0 6px var(--accent-green);
+}
+
+.topology-branches {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 20px;
+}
+
+.branch-line {
+    position: absolute;
+    left: 0;
+    width: 20px;
+    border-left: 2px solid rgba(255, 255, 255, 0.08);
+}
+
+.branch-line.line-up {
+    top: 50%;
+    bottom: calc(50% - 32px);
+    border-top: 2px solid rgba(255, 255, 255, 0.08);
+    border-top-left-radius: 4px;
+}
+
+.branch-line.line-down {
+    bottom: 50%;
+    top: calc(50% - 32px);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+    border-bottom-left-radius: 4px;
+}
+
+.topology-endpoints {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.endpoint-node {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.endpoint-icon {
+    width: 32px;
+    height: 32px;
+    background-color: var(--bg-card-solid);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 8px;
+    color: var(--text-muted);
+}
+
+/* Risk Assessment right side card custom */
+.risk-gauge-container {
+    padding: 16px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.risk-score-num {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--accent-green);
+    line-height: 1;
+}
+
+.risk-score-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.risk-details-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.risk-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+}
+
+.detail-label-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+.detail-value {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Connected Devices Grid styling */
+.connected-devices-section {
+    margin-top: 16px;
+}
+
+.connected-devices-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+}
+
+.devices-header-left h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.devices-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.devices-controls-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 240px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 12px 10px 38px;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.88rem;
+    transition: all 0.2s ease;
+}
+
+.search-box input:focus {
+    border-color: var(--accent-blue);
+    width: 280px; /* Expandable search box */
+}
+
+/* Collapsible Filter Panel */
+.filter-panel {
+    background-color: rgba(10, 18, 32, 0.4);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    animation: fadeInSlide 0.25s ease-out;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filter-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.btn-filter-tag {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    transition: all 0.15s ease;
+}
+
+.btn-filter-tag:hover {
+    color: var(--text-primary);
+    border-color: var(--border-color-hover);
+}
+
+.btn-filter-tag.active {
+    background-color: var(--accent-blue-dim);
+    border-color: rgba(59, 130, 246, 0.3);
+    color: var(--accent-blue);
+}
+
+/* Connected Devices Grid */
+.devices-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.device-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px;
+    transition: all 0.25s ease;
+}
+
+.device-card:hover {
+    border-color: var(--border-color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+.device-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.device-avatar-wrapper {
+    width: 38px;
+    height: 38px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+}
+
+.device-avatar-wrapper i {
+    width: 20px;
+    height: 20px;
+}
+
+.device-status-badge-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.seen-time {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.device-info-body h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.device-ip-os {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.device-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.device-status-desc {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.status-indicator-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.status-indicator-dot.active { background-color: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); }
+.status-indicator-dot.standby { background-color: var(--accent-blue); box-shadow: 0 0 6px var(--accent-blue); }
+.status-indicator-dot.danger { background-color: var(--accent-red); box-shadow: 0 0 6px var(--accent-red); }
+
+.device-risk-score {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Dashed Add Device Card */
+.device-card-onboard {
+    border: 2px dashed rgba(255, 255, 255, 0.08);
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 180px;
+    transition: all 0.25s ease;
+}
+
+.device-card-onboard:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    background-color: rgba(59, 130, 246, 0.01);
+    color: var(--accent-blue);
+}
+
+.icon-onboard-plus {
+    width: 28px;
+    height: 28px;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.device-card-onboard:hover .icon-onboard-plus {
+    color: var(--accent-blue);
+}
+
+.onboard-text {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Responsiveness for Devices */
+@media (max-width: 1200px) {
+    .devices-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .devices-top-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .router-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .devices-grid {
+        grid-template-columns: 1fr;
+    }
+    .devices-header-left {
+        margin-bottom: 12px;
+    }
+    .connected-devices-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .devices-controls-right {
+        justify-content: space-between;
+    }
+    .search-box {
+        flex-grow: 1;
+        width: auto;
+    }
+    .search-box input:focus {
+        width: 100%;
+    }
+}
