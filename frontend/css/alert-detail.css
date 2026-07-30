@@ -1,0 +1,503 @@
+/* Guardian Portal - Alert Detail view styles */
+
+.alert-detail-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.btn-back {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 6px 0;
+}
+
+.btn-back i {
+    width: 22px;
+    height: 22px;
+    color: var(--text-secondary);
+    transition: transform 0.2s ease;
+}
+
+.btn-back:hover i {
+    transform: translateX(-4px);
+    color: var(--text-primary);
+}
+
+.nav-right-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* High Risk Banner */
+.alert-risk-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(20, 30, 48, 0.8) 0%, rgba(10, 18, 32, 0.8) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-bottom: 24px;
+}
+
+.banner-content-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 60%;
+}
+
+.badge-status-orange {
+    display: inline-flex;
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #f7a8b4;
+    background-color: rgba(244, 63, 94, 0.12);
+    border: 1px solid rgba(244, 63, 94, 0.25);
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.alert-risk-banner h2 {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #fca5a5;
+    text-shadow: 0 0 15px rgba(244, 63, 94, 0.2);
+}
+
+.alert-risk-banner p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.banner-wellness-gauge {
+    flex-shrink: 0;
+}
+
+.wellness-score-num {
+    font-family: var(--font-heading);
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--accent-green);
+    line-height: 1;
+}
+
+.wellness-score-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* Confidence Score & AI Narrative Row */
+.alert-narrative-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.confidence-score-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.confidence-score-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.score-display {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.score-number {
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.score-label-green {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-green);
+    margin-top: 4px;
+}
+
+.confidence-progress-track {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.confidence-progress-bar {
+    height: 100%;
+    border-radius: 3px;
+}
+
+.fill-blue-89 { width: 89%; background-color: var(--accent-blue); box-shadow: 0 0 8px var(--accent-blue); }
+
+/* Narrative Card */
+.narrative-card {
+    background-color: rgba(10, 18, 32, 0.35);
+}
+
+.narrative-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.narrative-body-text {
+    font-size: 1.05rem;
+    color: #d1d5db;
+    line-height: 1.6;
+    font-style: italic;
+    font-weight: 400;
+    padding-top: 10px;
+}
+
+/* History and Timeline Row */
+.alert-history-timeline-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.detection-timeline-card h3, .alert-history-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+/* Vertical timeline custom styles */
+.timeline-vertical {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 20px;
+    margin-top: 8px;
+}
+
+.timeline-vertical::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    bottom: 24px;
+    left: 4px;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.timeline-step {
+    display: flex;
+    position: relative;
+    padding-left: 24px;
+    padding-bottom: 28px;
+}
+
+.timeline-step:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-step .step-dot {
+    position: absolute;
+    left: -20px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--bg-card-solid);
+    border: 2px solid var(--text-muted);
+    box-shadow: 0 0 0 2px var(--bg-card-solid);
+}
+
+.timeline-step.step-orange .step-dot { border-color: var(--accent-orange); box-shadow: 0 0 6px var(--accent-orange); }
+.timeline-step.step-blue .step-dot { border-color: var(--accent-blue); box-shadow: 0 0 6px var(--accent-blue); }
+.timeline-step.step-gray .step-dot { border-color: var(--text-muted); }
+
+.step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.step-time {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.step-content p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Alert History List */
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: rgba(10, 18, 32, 0.2);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+}
+
+.history-item.clickable:hover {
+    background-color: rgba(10, 18, 32, 0.45);
+    border-color: var(--border-color-hover);
+    cursor: pointer;
+}
+
+.history-item-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.history-item-left i {
+    width: 18px;
+    height: 18px;
+}
+
+.history-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.history-date {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.history-desc {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.icon-chevron {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+}
+
+/* Recommended Actions Grid */
+.recommended-actions-section {
+    margin-bottom: 36px;
+}
+
+.recommended-actions-section h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+}
+
+.action-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all 0.25s ease;
+}
+
+.action-card.clickable:hover {
+    border-color: var(--border-color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    cursor: pointer;
+}
+
+.action-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-icon-circle i {
+    width: 20px;
+    height: 20px;
+}
+
+.action-card h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.action-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Emergency Protocol Banner (Warning Red Box) */
+.emergency-protocol-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px;
+    background-color: rgba(69, 10, 20, 0.35);
+    border: 1px solid rgba(244, 63, 94, 0.3);
+    border-radius: var(--radius-lg);
+    box-shadow: inset 0 0 30px rgba(244, 63, 94, 0.05);
+}
+
+.emergency-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.banner-asterisk-circle {
+    width: 56px;
+    height: 56px;
+    background-color: #fda4af;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-white {
+    width: 24px;
+    height: 24px;
+    color: #4c0519;
+}
+
+.banner-texts h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fecdd3;
+    margin-bottom: 4px;
+}
+
+.banner-texts p {
+    font-size: 0.9rem;
+    color: #fda4af;
+}
+
+.emergency-banner-right {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-emergency-helpline {
+    background-color: #fca5a5;
+    color: #4c0519;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 14px 28px;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(244, 63, 94, 0.25);
+}
+
+.btn-emergency-helpline:hover {
+    background-color: #fecdd3;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(244, 63, 94, 0.35);
+}
+
+.btn-emergency-guardian {
+    background-color: transparent;
+    border: 1px solid rgba(254, 205, 211, 0.3);
+    color: #fecdd3;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 14px 28px;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-emergency-guardian:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-color: rgba(254, 205, 211, 0.6);
+}
+
+/* Responsiveness for Alert Detail */
+@media (max-width: 1024px) {
+    .alert-risk-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+    }
+    .banner-content-left {
+        max-width: 100%;
+    }
+    .alert-narrative-row, .alert-history-timeline-row {
+        grid-template-columns: 1fr;
+    }
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+    .emergency-protocol-banner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+    }
+    .emergency-banner-right {
+        flex-direction: column;
+    }
+}

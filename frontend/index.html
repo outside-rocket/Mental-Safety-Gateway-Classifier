@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardian Portal - Behavioral Risk Intelligence</title>
+    <meta name="description" content="Predictive modeling for patient safety and wellness trends. Built with Guardian AI.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/analytics.css">
+    <link rel="stylesheet" href="css/alerts.css">
+    <link rel="stylesheet" href="css/devices.css">
+    <link rel="stylesheet" href="css/alert-detail.css">
+    <link rel="stylesheet" href="css/settings.css">
+    
+    <!-- Chart.js CDN for interactive charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-theme">
+    <!-- Root App Shell -->
+    <div id="app" class="app-layout login-mode">
+        
+        <!-- Sidebar Navigation (Desktop) -->
+        <aside id="sidebar" class="sidebar hidden">
+            <div class="sidebar-header">
+                <img src="assets/avatar.png" alt="Guardian User Profile" class="avatar-img">
+                <span class="logo-text">Guardian Portal</span>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#overview" class="menu-item" data-view="overview">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="#analytics" class="menu-item active" data-view="analytics">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="#alerts" class="menu-item" data-view="alerts">
+                    <i data-lucide="bell"></i>
+                    <span>Incidents</span>
+                </a>
+                <a href="#devices" class="menu-item" data-view="devices">
+                    <i data-lucide="cpu"></i>
+                    <span>Devices</span>
+                </a>
+                <a href="#settings" class="menu-item" data-view="settings">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="btn-logout" class="logout-link">
+                    <i data-lucide="log-out"></i>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Top Header Navigation -->
+        <header id="top-nav" class="top-nav hidden">
+            <div class="top-nav-left">
+                <img src="assets/avatar.png" alt="Guardian User Profile" class="avatar-img desktop-hide">
+                <span class="logo-text">Guardian Portal</span>
+            </div>
+            <div class="top-nav-right">
+                <nav class="top-nav-links">
+                    <a href="#overview" class="nav-link" data-view="overview">Overview</a>
+                    <a href="#analytics" class="nav-link active" data-view="analytics">Analytics</a>
+                    <a href="#alerts" class="nav-link" data-view="alerts">Incidents</a>
+                </nav>
+                <div class="header-actions">
+                    <div class="notification-trigger">
+                        <i data-lucide="bell" class="icon-bell"></i>
+                        <span class="notification-badge"></span>
+                    </div>
+                    <img src="assets/avatar.png" alt="Guardian User Profile" class="avatar-img-header mobile-hide">
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="main-content">
+            
+            <!-- VIEW 1: WELCOME BACK (LOGIN) -->
+            <section id="view-login" class="view-container active">
+                <div class="login-wrapper">
+                    <div class="login-header-logo">
+                        <div class="shield-icon-container">
+                            <i data-lucide="shield-check" class="shield-icon"></i>
+                        </div>
+                    </div>
+                    <div class="login-card">
+                        <h2>Welcome Back</h2>
+                        <p class="subtitle">Sign in to your secure gateway.</p>
+                        
+                        <form id="login-form" onsubmit="event.preventDefault();">
+                            <div class="form-group">
+                                <label for="login-email">EMAIL ADDRESS</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="mail" class="input-icon"></i>
+                                    <input type="email" id="login-email" placeholder="name@guardian.io" required value="admin@guardian.io">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="login-password">SECURITY KEY</label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="lock" class="input-icon"></i>
+                                    <input type="password" id="login-password" placeholder="••••••••" required value="password123">
+                                </div>
+                            </div>
+                            
+                            <div class="form-options">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="remember-me" checked>
+                                    <span class="checkmark"></span>
+                                    Remember Me
+                                </label>
+                                <a href="#forgot" class="forgot-link">Forgot Password?</a>
+                            </div>
+                            
+                            <button type="submit" id="btn-login-submit" class="btn-primary btn-block">
+                                <span>Sign In to Portal</span>
+                                <i data-lucide="log-in" class="btn-icon-right"></i>
+                            </button>
+                        </form>
+                        
+                        <div class="ai-protection-badge">
+                            <span>PROTECTED BY GUARDIAN AI</span>
+                        </div>
+                        
+                        <div class="social-login-grid">
+                            <button type="button" class="btn-social" id="btn-login-google">
+                                <svg class="social-svg" viewBox="0 0 24 24" width="18" height="18">
+                                    <path fill="#EA4335" d="M12 5.04c1.67 0 3.17.58 4.35 1.71l3.25-3.25C17.63 1.7 15.02 1 12 1 7.37 1 3.42 3.66 1.5 7.55l3.86 3C6.27 7.55 8.91 5.04 12 5.04z"/>
+                                    <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.34H12v4.44h6.44c-.28 1.48-1.12 2.73-2.38 3.58l3.7 2.87c2.16-2 3.73-4.94 3.73-8.55z"/>
+                                    <path fill="#FBBC05" d="M5.36 10.55c-.24-.71-.38-1.47-.38-2.27s.14-1.56.38-2.27L1.5 3.01C.54 4.93 0 7.07 0 9.28s.54 4.35 1.5 6.27l3.86-3z"/>
+                                    <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.7-2.87c-1.03.69-2.35 1.1-4.26 1.1-3.09 0-5.73-2.51-6.64-5.51l-3.86 3C3.42 20.34 7.37 23 12 23z"/>
+                                </svg>
+                                <span>Google</span>
+                            </button>
+                            <button type="button" class="btn-social" id="btn-login-passkey">
+                                <i data-lucide="key" class="social-icon"></i>
+                                <span>Passkey</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <footer class="login-footer">
+                        <a href="#privacy">Privacy Policy</a>
+                        <a href="#terms">Terms of Service</a>
+                        <a href="#security">Security Audit</a>
+                    </footer>
+                </div>
+            </section>
+
+            <!-- VIEW 2: BEHAVIORAL RISK INTELLIGENCE (ANALYTICS) -->
+            <section id="view-analytics" class="view-container">
+                <div class="view-header">
+                    <h1>Behavioral Risk Intelligence</h1>
+                    <p class="subtitle">Predictive modeling for patient safety and wellness trends.</p>
+                </div>
+
+                <div class="analytics-grid">
+                    <!-- Wellness Trend Chart Card -->
+                    <div class="dashboard-card wellness-trend-card">
+                        <div class="card-header">
+                            <div class="header-text">
+                                <h3>Weekly Wellness Trend</h3>
+                                <p class="card-subtitle">Average wellness index vs. activity baseline</p>
+                            </div>
+                            <span class="badge badge-success-outline">+4.2% Growth</span>
+                        </div>
+                        <div class="chart-container-large">
+                            <canvas id="weeklyWellnessChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 30-Day Summary Card -->
+                    <div class="dashboard-card summary-card">
+                        <div class="card-header border-bottom-none">
+                            <h3>30-DAY SUMMARY</h3>
+                        </div>
+                        <div class="summary-metrics">
+                            <div class="metric-row">
+                                <div class="metric-info">
+                                    <span class="metric-label">Total Risk Events</span>
+                                    <span class="metric-val">12</span>
+                                </div>
+                                <span class="metric-trend trend-down">
+                                    <i data-lucide="trending-down"></i>
+                                    -22%
+                                </span>
+                            </div>
+                            <div class="metric-row border-top-dark">
+                                <div class="metric-info">
+                                    <span class="metric-label">Response Time Avg</span>
+                                    <span class="metric-val">1.8m</span>
+                                </div>
+                                <span class="metric-trend trend-up-bad">
+                                    <i data-lucide="trending-up"></i>
+                                    +0.2m
+                                </span>
+                            </div>
+                            <div class="metric-row border-top-dark density-section">
+                                <span class="metric-label">Incident Density</span>
+                                <div class="incident-density-bars">
+                                    <div class="density-bar filled" style="height: 12px;" title="Low incident density"></div>
+                                    <div class="density-bar filled" style="height: 12px;" title="Low incident density"></div>
+                                    <div class="density-bar filled" style="height: 18px;" title="Medium incident density"></div>
+                                    <div class="density-bar filled" style="height: 10px;" title="Low incident density"></div>
+                                    <div class="density-bar filled" style="height: 24px;" title="High incident density"></div>
+                                    <div class="density-bar filled" style="height: 15px;" title="Medium incident density"></div>
+                                    <div class="density-bar filled" style="height: 8px;" title="Low incident density"></div>
+                                    <div class="density-bar filled active" style="height: 32px;" title="Critical incident density today"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Behavior Analysis List Card -->
+                    <div class="dashboard-card behavior-analysis-card">
+                        <div class="card-header">
+                            <div class="card-title-icon">
+                                <i data-lucide="brain" class="icon-green"></i>
+                                <h3>Behavior Analysis</h3>
+                            </div>
+                        </div>
+                        <div class="analysis-list">
+                            <div class="analysis-item">
+                                <div class="analysis-left">
+                                    <div class="icon-wrapper bg-green-dim">
+                                        <i data-lucide="users" class="icon-green"></i>
+                                    </div>
+                                    <div class="analysis-info">
+                                        <span class="item-title">Social Engagement</span>
+                                        <span class="item-desc">Frequency of interaction</span>
+                                    </div>
+                                </div>
+                                <span class="analysis-val val-green">+12%</span>
+                            </div>
+
+                            <div class="analysis-item">
+                                <div class="analysis-left">
+                                    <div class="icon-wrapper bg-red-dim">
+                                        <i data-lucide="moon" class="icon-red"></i>
+                                    </div>
+                                    <div class="analysis-info">
+                                        <span class="item-title">Sleep Consistency</span>
+                                        <span class="item-desc">Restorative cycles</span>
+                                    </div>
+                                </div>
+                                <span class="analysis-val val-red">-5%</span>
+                            </div>
+
+                            <div class="analysis-item">
+                                <div class="analysis-left">
+                                    <div class="icon-wrapper bg-blue-dim">
+                                        <i data-lucide="footprints" class="icon-blue"></i>
+                                    </div>
+                                    <div class="analysis-info">
+                                        <span class="item-title">Pacing & Agitation</span>
+                                        <span class="item-desc">Movement patterns</span>
+                                    </div>
+                                </div>
+                                <span class="analysis-val val-blue">+2%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Risk Timeline Card -->
+                    <div class="dashboard-card timeline-card">
+                        <div class="card-header">
+                            <div class="card-title-icon">
+                                <i data-lucide="activity" class="icon-pink"></i>
+                                <h3>Risk Timeline</h3>
+                            </div>
+                            <a href="#alerts" class="view-log-link">View Log</a>
+                        </div>
+                        <div class="timeline-container">
+                            <div class="timeline-item critical">
+                                <div class="timeline-dot-container">
+                                    <div class="timeline-dot"></div>
+                                </div>
+                                <div class="timeline-content">
+                                    <span class="timeline-time">Oct 24, 02:14 AM</span>
+                                    <h4>Erratic Movement Detected</h4>
+                                    <p>High-frequency pacing identified in Hallway B. Triggered level 2 alert.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item success">
+                                <div class="timeline-dot-container">
+                                    <div class="timeline-dot"></div>
+                                </div>
+                                <div class="timeline-content">
+                                    <span class="timeline-time">Oct 22, 11:30 PM</span>
+                                    <h4>Risk Level Down-graded</h4>
+                                    <p>Patient entered deep sleep phase. Stability index increased by 15%.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item critical">
+                                <div class="timeline-dot-container">
+                                    <div class="timeline-dot"></div>
+                                </div>
+                                <div class="timeline-content">
+                                    <span class="timeline-time">Oct 20, 09:15 AM</span>
+                                    <h4>Verbal Outburst Warning</h4>
+                                    <p>Audio sensors detected elevated vocal pitch during social hour.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 3: GUARDIAN ALERTS -->
+            <section id="view-alerts" class="view-container">
+                <!-- Helpline Buttons Grid -->
+                <div class="emergency-help-grid">
+                    <div class="help-card btn-help-emergency" id="btn-emergency-help-card">
+                        <i data-lucide="asterisk" class="icon-asterisk"></i>
+                        <span class="help-label">EMERGENCY HELP</span>
+                    </div>
+                    <div class="help-card btn-help-helpline" id="btn-helpline-card">
+                        <i data-lucide="phone" class="icon-phone"></i>
+                        <span class="help-label">Helpline</span>
+                    </div>
+                    <div class="help-card btn-help-hospital" id="btn-hospitals-card">
+                        <i data-lucide="plus-square" class="icon-hospital"></i>
+                        <span class="help-label">Nearby Hospitals</span>
+                    </div>
+                </div>
+
+                <div class="alerts-layout-grid">
+                    <!-- Left: Recent Activity Feed -->
+                    <div class="dashboard-card recent-activity-card">
+                        <div class="card-header border-bottom-none">
+                            <div class="activity-header-left">
+                                <i data-lucide="history" class="icon-history"></i>
+                                <h3>Recent Activity</h3>
+                            </div>
+                            <span class="live-update-badge">
+                                <span class="pulse-dot"></span>
+                                LIVE UPDATE
+                            </span>
+                        </div>
+                        <div class="activity-feed-list">
+                            <!-- Alert 1 (Critical) -->
+                            <div class="activity-feed-item status-critical" data-alert-id="1">
+                                <div class="feed-item-top">
+                                    <div class="feed-title-container">
+                                        <span class="status-dot-critical"></span>
+                                        <h4 class="feed-title">Agitated Verbal Patterns Detected</h4>
+                                    </div>
+                                    <span class="badge-status badge-critical">CRITICAL</span>
+                                </div>
+                                <p class="feed-location">Station Alpha-01 • Core Sensor Node</p>
+                                <div class="feed-item-footer">
+                                    <span class="feed-time"><i data-lucide="clock"></i> 2m ago</span>
+                                    <span class="feed-accuracy"><i data-lucide="bar-chart-horizontal"></i> 98% Confidence</span>
+                                </div>
+                            </div>
+
+                            <!-- Alert 2 (Elevated) -->
+                            <div class="activity-feed-item status-elevated" data-alert-id="2">
+                                <div class="feed-item-top">
+                                    <div class="feed-title-container">
+                                        <span class="status-dot-elevated"></span>
+                                        <h4 class="feed-title">Elevated Heart Rate Variance</h4>
+                                    </div>
+                                    <span class="badge-status badge-elevated">ELEVATED</span>
+                                </div>
+                                <p class="feed-location">Wearable Unit X7 • User ID: 9422</p>
+                                <div class="feed-item-footer">
+                                    <span class="feed-time"><i data-lucide="clock"></i> 14m ago</span>
+                                    <span class="feed-accuracy"><i data-lucide="bar-chart-horizontal"></i> 82% Confidence</span>
+                                </div>
+                            </div>
+
+                            <!-- Alert 3 (Normal) -->
+                            <div class="activity-feed-item status-normal" data-alert-id="3">
+                                <div class="feed-item-top">
+                                    <div class="feed-title-container">
+                                        <span class="status-dot-normal"></span>
+                                        <h4 class="feed-title">Routine Environmental Scan Complete</h4>
+                                    </div>
+                                    <span class="badge-status badge-normal">NORMAL</span>
+                                </div>
+                                <p class="feed-location">All Active Nodes • System-wide</p>
+                                <div class="feed-item-footer">
+                                    <span class="feed-time"><i data-lucide="clock"></i> 45m ago</span>
+                                    <span class="feed-accuracy"><i data-lucide="check-circle-2"></i> 100% Precision</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Guardian Insights & System Fidelity -->
+                    <div class="alerts-sidebar-grid">
+                        <!-- AI Action Plan Card -->
+                        <div class="dashboard-card insight-card">
+                            <div class="card-header border-bottom-none">
+                                <h3>Guardian Insight</h3>
+                            </div>
+                            <div class="insight-content-box">
+                                <div class="insight-inner-header">
+                                    <h4>AI Action Plan</h4>
+                                    <i data-lucide="brain-circuit" class="insight-icon-decor"></i>
+                                </div>
+                                <p>Based on the latest verbal agitation patterns, the system recommends immediate intervention or a peer support check-in.</p>
+                                <div class="insight-actions">
+                                    <button class="btn-primary btn-block flex-center" id="btn-monitor-activity">
+                                        <i data-lucide="eye" class="btn-icon-left"></i>
+                                        <span>Monitor Activity</span>
+                                    </button>
+                                    <button class="btn-secondary btn-block flex-center" id="btn-suggested-help">
+                                        <i data-lucide="file-text" class="btn-icon-left"></i>
+                                        <span>Professional Help Suggested</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Fidelity Gauge Card -->
+                        <div class="dashboard-card fidelity-card">
+                            <div class="fidelity-header">
+                                <span class="fidelity-label">SYSTEM FIDELITY</span>
+                                <span class="fidelity-value">99.2%</span>
+                            </div>
+                            <div class="fidelity-gauge-container">
+                                <div class="gauge-donut-wrapper">
+                                    <canvas id="fidelityGaugeChart"></canvas>
+                                    <div class="gauge-center-text">
+                                        <span class="gauge-grade">A+</span>
+                                        <span class="gauge-status-label">SAFE</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Small bar indicators at the bottom -->
+                            <div class="fidelity-bars">
+                                <div class="fidelity-bar fill-80"></div>
+                                <div class="fidelity-bar fill-70"></div>
+                                <div class="fidelity-bar fill-95"></div>
+                                <div class="fidelity-bar fill-100"></div>
+                                <div class="fidelity-bar fill-95-active"></div>
+                                <div class="fidelity-bar fill-50"></div>
+                                <div class="fidelity-bar fill-30"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 4: ROUTER STATUS & CONNECTED DEVICES (DEVICES) -->
+            <section id="view-devices" class="view-container">
+                <div class="devices-top-row">
+                    <!-- OpenWrt Router Card -->
+                    <div class="dashboard-card router-status-card">
+                        <div class="router-header">
+                            <div class="router-title-info">
+                                <div class="online-indicator-row">
+                                    <span class="online-dot"></span>
+                                    <span class="online-text">ROUTER ONLINE</span>
+                                </div>
+                                <h2>OpenWrt Gateway</h2>
+                                <p class="router-model">Model Version: v2.1 Edge AI Optimized</p>
+                            </div>
+                            <span class="npu-badge">
+                                <i data-lucide="cpu" class="npu-icon"></i>
+                                NPU Inference Active
+                            </span>
+                        </div>
+                        <div class="router-metrics-grid">
+                            <div class="router-metric">
+                                <span class="metric-name">THROUGHPUT</span>
+                                <div class="metric-visual-number">
+                                    <span class="metric-num-val">124</span>
+                                    <span class="metric-unit">Mbps</span>
+                                </div>
+                                <div class="metric-progress-track">
+                                    <div class="metric-progress-bar fill-blue-30"></div>
+                                </div>
+                            </div>
+                            <div class="router-metric">
+                                <span class="metric-name">LATENCY</span>
+                                <div class="metric-visual-number">
+                                    <span class="metric-num-val">12</span>
+                                    <span class="metric-unit">ms</span>
+                                </div>
+                                <div class="metric-progress-track">
+                                    <div class="metric-progress-bar fill-green-15"></div>
+                                </div>
+                            </div>
+                            <div class="router-metric">
+                                <span class="metric-name">CPU LOAD</span>
+                                <div class="metric-visual-number">
+                                    <span class="metric-num-val">42</span>
+                                    <span class="metric-unit">%</span>
+                                </div>
+                                <div class="metric-progress-track">
+                                    <div class="metric-progress-bar fill-purple-42"></div>
+                                </div>
+                            </div>
+                            <div class="router-metric">
+                                <span class="metric-name">RAM USAGE</span>
+                                <div class="metric-visual-number">
+                                    <span class="metric-num-val">68</span>
+                                    <span class="metric-unit">%</span>
+                                </div>
+                                <div class="metric-progress-track">
+                                    <div class="metric-progress-bar fill-cyan-68"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Topology Mapping Segment -->
+                        <div class="topology-segment">
+                            <h4>Topology Mapping</h4>
+                            <div class="topology-chart">
+                                <div class="topology-node-isp">
+                                    <i data-lucide="globe" class="node-icon"></i>
+                                    <span>ISP</span>
+                                </div>
+                                <div class="topology-line active"></div>
+                                <div class="topology-node-gateway active-glow">
+                                    <i data-lucide="router" class="node-icon"></i>
+                                    <span>Gateway</span>
+                                </div>
+                                <div class="topology-branches">
+                                    <div class="branch-line line-up"></div>
+                                    <div class="branch-line line-down"></div>
+                                    <div class="topology-endpoints">
+                                        <div class="endpoint-node">
+                                            <i data-lucide="laptop" class="endpoint-icon"></i>
+                                            <span>8 Devices</span>
+                                        </div>
+                                        <div class="endpoint-node mt-16">
+                                            <i data-lucide="smartphone" class="endpoint-icon"></i>
+                                            <span>12 IoT Nodes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Risk Assessment Card -->
+                    <div class="dashboard-card risk-assessment-card">
+                        <div class="card-header border-bottom-none">
+                            <h3>RISK ASSESSMENT</h3>
+                        </div>
+                        <div class="risk-gauge-container">
+                            <div class="gauge-donut-wrapper">
+                                <canvas id="riskAssessmentGaugeChart"></canvas>
+                                <div class="gauge-center-text">
+                                    <span class="risk-score-num">92</span>
+                                    <span class="risk-score-label">Safety Score</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="risk-details-list">
+                            <div class="risk-detail-row">
+                                <div class="detail-label-container">
+                                    <span class="dot-red-large"></span>
+                                    <span>Critical Alerts</span>
+                                </div>
+                                <span class="detail-value alert-critical-count">0</span>
+                            </div>
+                            <div class="risk-detail-row border-top-dark">
+                                <div class="detail-label-container">
+                                    <span class="dot-blue-large"></span>
+                                    <span>Suspicious Activity</span>
+                                </div>
+                                <span class="detail-value alert-suspicious-count">2</span>
+                            </div>
+                            <div class="risk-detail-row border-top-dark">
+                                <div class="detail-label-container">
+                                    <span class="dot-green-large"></span>
+                                    <span>Scan Completeness</span>
+                                </div>
+                                <span class="detail-value val-green font-semibold">100%</span>
+                            </div>
+                        </div>
+                        <button class="btn-primary btn-block flex-center" id="btn-run-network-scan">
+                            <span>Run Full Network Scan</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Connected Devices Grid Section -->
+                <div class="connected-devices-section">
+                    <div class="connected-devices-header">
+                        <div class="devices-header-left">
+                            <h2>Connected Devices</h2>
+                            <p class="devices-subtitle">Active monitoring on <span id="active-devices-count">20</span> endpoints</p>
+                        </div>
+                        <div class="devices-controls-right">
+                            <div class="search-box">
+                                <i data-lucide="search" class="search-icon"></i>
+                                <input type="text" id="device-search-input" placeholder="Search devices...">
+                            </div>
+                            <button class="btn-icon" id="btn-device-filter" title="Filter devices">
+                                <i data-lucide="sliders-horizontal"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filter Options Panel (collapsible) -->
+                    <div class="filter-panel hidden" id="device-filter-panel">
+                        <div class="filter-group">
+                            <span class="filter-label">Status:</span>
+                            <button class="btn-filter-tag active" data-filter="all">All</button>
+                            <button class="btn-filter-tag" data-filter="active">Active</button>
+                            <button class="btn-filter-tag" data-filter="standby">Standby</button>
+                        </div>
+                    </div>
+
+                    <div class="devices-grid" id="devices-grid-container">
+                        <!-- Device Cards will be dynamically injected here to support search/sorting/pagination -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 5: ALERT DETAIL -->
+            <section id="view-alert-detail" class="view-container">
+                <!-- Alert Detail Header Navigation -->
+                <div class="alert-detail-nav">
+                    <button class="btn-back" id="btn-alert-detail-back">
+                        <i data-lucide="arrow-left"></i>
+                        <span>Alert Detail</span>
+                    </button>
+                    <div class="nav-right-actions">
+                        <i data-lucide="bell" class="icon-bell"></i>
+                        <img src="assets/avatar.png" alt="Guardian User Profile" class="avatar-img-header">
+                    </div>
+                </div>
+
+                <!-- High Risk Alert Banner Card -->
+                <div class="dashboard-card alert-risk-banner">
+                    <div class="banner-content-left">
+                        <span class="badge-status-orange">Current Risk Level</span>
+                        <h2>High Risk Detected</h2>
+                        <p>Automated analysis has flagged a significant deviation from normal behavioral baselines. Immediate review is recommended.</p>
+                    </div>
+                    <div class="banner-wellness-gauge">
+                        <div class="gauge-donut-wrapper">
+                            <canvas id="wellnessGaugeChart"></canvas>
+                            <div class="gauge-center-text">
+                                <span class="wellness-score-num">64%</span>
+                                <span class="wellness-score-label">WELLNESS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Confidence & AI Narrative Section -->
+                <div class="alert-narrative-row">
+                    <!-- Confidence Score Card -->
+                    <div class="dashboard-card confidence-score-card">
+                        <h3>Confidence Score</h3>
+                        <div class="score-display">
+                            <span class="score-number">89%</span>
+                            <span class="score-label-green">High Precision</span>
+                        </div>
+                        <div class="confidence-progress-track">
+                            <div class="confidence-progress-bar fill-blue-89"></div>
+                        </div>
+                    </div>
+
+                    <!-- AI Narrative Card -->
+                    <div class="dashboard-card narrative-card">
+                        <div class="card-header border-bottom-none">
+                            <div class="card-title-icon">
+                                <i data-lucide="sparkles" class="icon-purple"></i>
+                                <h3>AI Narrative Analysis</h3>
+                            </div>
+                        </div>
+                        <div class="narrative-body-text">
+                            <p>"Detected linguistic patterns indicating high stress and social withdrawal over the last 48 hours. Communication volume has decreased by 70%, while keyword frequency related to anxiety has increased significantly across monitored channels."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detection Timeline & Alert History Section -->
+                <div class="alert-history-timeline-row">
+                    <!-- Detection Timeline Card -->
+                    <div class="dashboard-card detection-timeline-card">
+                        <h3>Detection Timeline</h3>
+                        <div class="timeline-vertical">
+                            <div class="timeline-step step-orange">
+                                <span class="step-dot"></span>
+                                <div class="step-content">
+                                    <div class="step-time">10:14 AM - Unusual silence detected</div>
+                                    <p>Digital activity dropped below 5% of standard baseline.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-step step-blue">
+                                <span class="step-dot"></span>
+                                <div class="step-content">
+                                    <div class="step-time">09:45 AM - Rapid typing patterns</div>
+                                    <p>High-velocity input suggesting cognitive agitation.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-step step-gray">
+                                <span class="step-dot"></span>
+                                <div class="step-content">
+                                    <div class="step-time">08:12 AM - System Login</div>
+                                    <p>Standard authentication protocol completed.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alert History Card -->
+                    <div class="dashboard-card alert-history-card">
+                        <h3>Alert History</h3>
+                        <div class="history-list">
+                            <div class="history-item clickable">
+                                <div class="history-item-left">
+                                    <i data-lucide="alert-triangle" class="icon-warning-orange"></i>
+                                    <div class="history-info">
+                                        <span class="history-date">Oct 24, 2023</span>
+                                        <span class="history-desc">Moderate Risk</span>
+                                    </div>
+                                </div>
+                                <i data-lucide="chevron-right" class="icon-chevron"></i>
+                            </div>
+
+                            <div class="history-item clickable">
+                                <div class="history-item-left">
+                                    <i data-lucide="check-circle" class="icon-check-green"></i>
+                                    <div class="history-info">
+                                        <span class="history-date">Oct 20, 2023</span>
+                                        <span class="history-desc">Safe Baseline</span>
+                                    </div>
+                                </div>
+                                <i data-lucide="chevron-right" class="icon-chevron"></i>
+                            </div>
+
+                            <div class="history-item clickable">
+                                <div class="history-item-left">
+                                    <i data-lucide="check-circle" class="icon-check-green"></i>
+                                    <div class="history-info">
+                                        <span class="history-date">Oct 14, 2023</span>
+                                        <span class="history-desc">Safe Baseline</span>
+                                    </div>
+                                </div>
+                                <i data-lucide="chevron-right" class="icon-chevron"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommended Actions Section -->
+                <div class="recommended-actions-section">
+                    <h3>Recommended Actions</h3>
+                    <div class="actions-grid">
+                        <div class="action-card clickable">
+                            <div class="action-icon-circle bg-blue-dim">
+                                <i data-lucide="eye" class="icon-blue"></i>
+                            </div>
+                            <h4>Monitor Activity</h4>
+                            <p>Increase sensor sensitivity and frequency for 24h.</p>
+                        </div>
+                        
+                        <div class="action-card clickable">
+                            <div class="action-icon-circle bg-green-dim">
+                                <i data-lucide="users-2" class="icon-green"></i>
+                            </div>
+                            <h4>Initiate Peer Check-in</h4>
+                            <p>Automate a soft outreach from verified peers.</p>
+                        </div>
+
+                        <div class="action-card clickable">
+                            <div class="action-icon-circle bg-red-dim">
+                                <i data-lucide="briefcase-medical" class="icon-red"></i>
+                            </div>
+                            <h4>Professional Consultation</h4>
+                            <p>Escalate to the clinical director for human review.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Protocol Banner -->
+                <div class="emergency-protocol-banner">
+                    <div class="emergency-banner-left">
+                        <div class="banner-asterisk-circle">
+                            <i data-lucide="asterisk" class="icon-white"></i>
+                        </div>
+                        <div class="banner-texts">
+                            <h3>Emergency Protocol</h3>
+                            <p>Manual overrides for high-risk interventions.</p>
+                        </div>
+                    </div>
+                    <div class="emergency-banner-right">
+                        <button class="btn-emergency-helpline" id="btn-emergency-action-call">
+                            <i data-lucide="phone"></i>
+                            <span>Call Emergency Helpline</span>
+                        </button>
+                        <button class="btn-emergency-guardian" id="btn-emergency-action-contact">
+                            <i data-lucide="users"></i>
+                            <span>Contact Family Guardian</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 6: SETTINGS -->
+            <section id="view-settings" class="view-container">
+                <div class="view-header">
+                    <h1>Portal Settings</h1>
+                    <p class="subtitle">Configure alert thresholds, notification endpoints, and gateway preferences.</p>
+                </div>
+                
+                <div class="settings-grid">
+                    <div class="dashboard-card settings-panel-card">
+                        <h3>General Settings</h3>
+                        <form id="settings-general-form" onsubmit="event.preventDefault();">
+                            <div class="form-group">
+                                <label for="settings-username">OPERATOR NAME</label>
+                                <input type="text" id="settings-username" value="Alex Mercer">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-role">ROLE</label>
+                                <input type="text" id="settings-role" value="Lead Clinical Operator" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-gateway-ip">GATEWAY IP ADDRESS</label>
+                                <input type="text" id="settings-gateway-ip" value="192.168.1.1">
+                            </div>
+                            <button type="submit" class="btn-primary">Save Settings</button>
+                        </form>
+                    </div>
+
+                    <div class="dashboard-card settings-panel-card">
+                        <h3>Alert Thresholds</h3>
+                        <div class="threshold-sliders">
+                            <div class="slider-group">
+                                <div class="slider-labels">
+                                    <span>Verbal Agitation Trigger</span>
+                                    <span class="slider-val" id="val-agitation-slider">80%</span>
+                                </div>
+                                <input type="range" class="custom-slider" id="slider-agitation" min="50" max="95" value="80">
+                            </div>
+                            <div class="slider-group border-top-dark pt-16">
+                                <div class="slider-labels">
+                                    <span>Heart Rate Variance Warning</span>
+                                    <span class="slider-val" id="val-hrv-slider">75%</span>
+                                </div>
+                                <input type="range" class="custom-slider" id="slider-hrv" min="50" max="95" value="75">
+                            </div>
+                            <div class="slider-group border-top-dark pt-16">
+                                <div class="slider-labels">
+                                    <span>Device Disconnection Timeout</span>
+                                    <span class="slider-val" id="val-timeout-slider">15m</span>
+                                </div>
+                                <input type="range" class="custom-slider" id="slider-timeout" min="1" max="60" value="15">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation Bar (Mobile Viewports) -->
+        <nav id="bottom-nav" class="bottom-nav hidden">
+            <a href="#overview" class="bottom-nav-item" data-view="overview">
+                <i data-lucide="home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#analytics" class="bottom-nav-item active" data-view="analytics">
+                <i data-lucide="bar-chart-2"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="#alerts" class="bottom-nav-item" data-view="alerts">
+                <i data-lucide="shield-alert"></i>
+                <span>Alerts</span>
+            </a>
+            <a href="#devices" class="bottom-nav-item" data-view="devices">
+                <i data-lucide="router"></i>
+                <span>Devices</span>
+            </a>
+            <a href="#settings" class="bottom-nav-item" data-view="settings">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Modals Container Overlay -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        
+        <!-- Onboard Device Modal -->
+        <div id="modal-onboard-device" class="modal-card hidden">
+            <div class="modal-header">
+                <h3>Onboard New Device</h3>
+                <button class="btn-close-modal"><i data-lucide="x"></i></button>
+            </div>
+            <form id="form-onboard-device" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="device-name">DEVICE NAME</label>
+                    <input type="text" id="device-name" placeholder="e.g. iPad Pro - Nurse" required>
+                </div>
+                <div class="form-group">
+                    <label for="device-ip">IP ADDRESS</label>
+                    <input type="text" id="device-ip" placeholder="e.g. 192.168.1.15" required pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$">
+                </div>
+                <div class="form-group">
+                    <label for="device-os">OPERATING SYSTEM / FIRMWARE</label>
+                    <input type="text" id="device-os" placeholder="e.g. iOS 17.2 or Embedded OS" required>
+                </div>
+                <div class="form-group">
+                    <label for="device-status">INITIAL STATUS</label>
+                    <select id="device-status">
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="STANDBY">STANDBY</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="device-risk">INITIAL RISK ESTIMATE (%)</label>
+                    <input type="number" id="device-risk" min="0.00" max="100.00" step="0.01" value="0.01">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary btn-close-modal-btn">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Endpoint</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Call Confirmation Modal -->
+        <div id="modal-call-confirm" class="modal-card hidden">
+            <div class="modal-header">
+                <h3>Trigger Protocol</h3>
+                <button class="btn-close-modal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body-text">
+                <p>Are you sure you want to dial the helpline? This will initiate emergency overrides and notify key caregivers.</p>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary btn-close-modal-btn">Cancel</button>
+                <button type="button" class="btn-danger" id="btn-modal-call-confirm">Initiate Call</button>
+            </div>
+        </div>
+
+        <!-- Network Scan Modal -->
+        <div id="modal-network-scan" class="modal-card hidden">
+            <div class="modal-header">
+                <h3>Scanning Local Area Network</h3>
+            </div>
+            <div class="scan-progress-body">
+                <div class="scanning-loader">
+                    <div class="scanner-circle"></div>
+                    <span class="scan-percent">0%</span>
+                </div>
+                <p class="scan-step-text">Initializing NPU packet inspection...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lucide Icons Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Application Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

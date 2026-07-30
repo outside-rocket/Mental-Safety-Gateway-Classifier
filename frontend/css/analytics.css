@@ -1,0 +1,332 @@
+/* Guardian Portal - Behavioral Risk Intelligence (Analytics) styles */
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+}
+
+.wellness-trend-card {
+    grid-column: span 4;
+}
+
+.summary-card {
+    grid-column: span 2;
+}
+
+.behavior-analysis-card {
+    grid-column: span 3;
+}
+
+.timeline-card {
+    grid-column: span 3;
+}
+
+/* Wellness Trend Customizations */
+.chart-container-large {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin-top: 12px;
+}
+
+/* 30-Day Summary Metric cards */
+.summary-metrics {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.metric-row:first-child {
+    padding-top: 0;
+}
+
+.metric-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.metric-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.metric-val {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.metric-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+}
+
+.metric-trend i {
+    width: 14px;
+    height: 14px;
+}
+
+.trend-down {
+    color: var(--accent-green);
+}
+
+.trend-up-bad {
+    color: var(--accent-orange);
+}
+
+/* Incident Density Widget */
+.density-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.incident-density-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    width: 100%;
+    height: 40px;
+    padding-top: 4px;
+}
+
+.density-bar {
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.density-bar.filled {
+    background-color: rgba(59, 130, 246, 0.25);
+}
+
+.density-bar.filled.active {
+    background-color: #93c5fd;
+    box-shadow: 0 0 10px 0 rgba(147, 197, 253, 0.5);
+}
+
+.density-bar:hover {
+    background-color: rgba(59, 130, 246, 0.5);
+    cursor: pointer;
+}
+
+/* Behavior Analysis Row styling */
+.analysis-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.analysis-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: rgba(10, 18, 32, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+}
+
+.analysis-item:hover {
+    border-color: var(--border-color-hover);
+    background-color: rgba(10, 18, 32, 0.55);
+}
+
+.analysis-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.analysis-left .icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.analysis-left .icon-wrapper i {
+    width: 20px;
+    height: 20px;
+}
+
+.analysis-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.item-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.item-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.analysis-val {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.val-green { color: var(--accent-green); }
+.val-red { color: #f43f5e; }
+.val-blue { color: var(--accent-blue); }
+
+/* Risk Timeline Components */
+.view-log-link {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 4px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+}
+
+.view-log-link:hover {
+    color: var(--text-primary);
+    border-color: var(--border-color-hover);
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 12px;
+}
+
+/* Timeline Vertical Line */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    bottom: 24px;
+    left: 20px;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.timeline-item {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 24px;
+    position: relative;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-dot-container {
+    width: 18px;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
+.timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-top: 4px;
+    background-color: var(--bg-card-solid);
+    border: 3px solid var(--accent-blue);
+    box-shadow: 0 0 0 2px var(--bg-card-solid);
+}
+
+.timeline-item.critical .timeline-dot {
+    border-color: #fda4af;
+    box-shadow: 0 0 8px 0 rgba(244, 63, 94, 0.4);
+}
+
+.timeline-item.success .timeline-dot {
+    border-color: #a7f3d0;
+    box-shadow: 0 0 8px 0 rgba(16, 185, 129, 0.4);
+}
+
+.timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.timeline-time {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+
+.timeline-content h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.timeline-content p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* Responsiveness for Analytics view */
+@media (max-width: 1024px) {
+    .analytics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .wellness-trend-card {
+        grid-column: span 2;
+    }
+    .summary-card {
+        grid-column: span 2;
+    }
+    .behavior-analysis-card {
+        grid-column: span 1;
+    }
+    .timeline-card {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+    .wellness-trend-card,
+    .summary-card,
+    .behavior-analysis-card,
+    .timeline-card {
+        grid-column: span 1;
+    }
+    .chart-container-large {
+        height: 240px;
+    }
+}
